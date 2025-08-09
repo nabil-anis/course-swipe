@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
+  ],
+  "buildCommand": "yarn build",
+  "outputDirectory": "build",
+  "installCommand": "yarn install",
+  "framework": "create-react-app",
+  "env": {
+    "REACT_APP_BACKEND_URL": "@react_app_backend_url"
+  }
+}
