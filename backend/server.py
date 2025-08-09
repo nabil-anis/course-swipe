@@ -50,7 +50,7 @@ class SwipeHistory(BaseModel):
     session_id: str
     course_id: str
     action: str
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 class HistoryResponse(BaseModel):
     saved_courses: List[str]
