@@ -66,15 +66,21 @@ class GoogleSheetsService:
             
             # Parse CSV
             csv_content = response.text
+            logger.info(f"CSV Content received: {csv_content[:500]}...")  # Log first 500 chars
+            
             reader = csv.DictReader(io.StringIO(csv_content))
             
             courses = []
             for i, row in enumerate(reader):
+                logger.info(f"Row {i}: {dict(row)}")  # Log each row
+                
                 # Handle different possible column names
-                course_name = row.get('course_name') or row.get('Course Name') or row.get('name', '')
+                course_name = row.get('course_name') or row.get('Course Name') or row.get('name', '') or row.get('Name', '')
                 description = row.get('description') or row.get('Description', '')
-                link = row.get('link') or row.get('Link') or row.get('url', '')
+                link = row.get('link') or row.get('Link') or row.get('url', '') or row.get('URL', '')
                 datetime_field = row.get('datetime') or row.get('date') or row.get('Date', '')
+                
+                logger.info(f"Parsed - Name: '{course_name}', Desc: '{description[:50]}...', Link: '{link}'")
                 
                 if course_name and description and link:
                     courses.append(Course(
