@@ -74,11 +74,17 @@ class GoogleSheetsService:
             for i, row in enumerate(reader):
                 logger.info(f"Row {i}: {dict(row)}")  # Log each row
                 
-                # Handle different possible column names
-                course_name = row.get('course_name') or row.get('Course Name') or row.get('name', '') or row.get('Name', '')
-                description = row.get('description') or row.get('Description', '')
-                link = row.get('link') or row.get('Link') or row.get('url', '') or row.get('URL', '')
-                datetime_field = row.get('datetime') or row.get('date') or row.get('Date', '')
+                # Handle different possible column names (including spaces and case variations)
+                course_name = (row.get(' course_name') or row.get('course_name') or 
+                             row.get('Course Name') or row.get(' Course Name') or 
+                             row.get('name') or row.get('Name')).strip() if any(
+                                 key.strip().lower() in ['course_name', 'course name', 'name'] 
+                                 for key in row.keys()) else ''
+                
+                description = (row.get('description') or row.get('Description') or '').strip()
+                link = (row.get('link') or row.get('Link') or row.get('url') or row.get('URL') or '').strip()
+                datetime_field = (row.get('datetime') or row.get('date') or row.get('Date') or 
+                                row.get('Column 4') or '').strip()
                 
                 logger.info(f"Parsed - Name: '{course_name}', Desc: '{description[:50]}...', Link: '{link}'")
                 
