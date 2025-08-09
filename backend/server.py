@@ -38,7 +38,7 @@ class Course(BaseModel):
     description: str
     link: str
     datetime: Optional[str] = None
-    last_updated: datetime = Field(default_factory=datetime.utcnow)
+    last_updated: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 class SwipeAction(BaseModel):
     course_id: str
