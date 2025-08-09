@@ -26,7 +26,7 @@ const DiscoverPage = () => {
       
       <div className="text-center mb-8">
         <h2 className="text-3xl font-serif text-gray-900 mb-2">Discover Your Perfect Course</h2>
-        <p className="text-gray-600">Swipe right to save courses you love, left to skip</p>
+        <p className="text-gray-600">Because learning should feel like a perfect match.</p>
       </div>
 
       <div className="flex justify-center mb-6">
